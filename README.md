@@ -31,6 +31,7 @@ var subscription = DeviceEventEmitter.addListener(
         */
     }
 );
+```
 
 
 ## Methods
@@ -42,7 +43,7 @@ To access the methods, you need import the `react-native-location` module. This 
 Location.requestWhenInUseAuthorization();
 ```
 
-This method should be called before anything else. It requests location updates while the application is open. If the application is in the background, you will not get location updates. Either this method or `Location.requestAlwaysAuthorization` (but not both) needs to be called to receive updates.
+This method should be called before anything else. It requests location updates while the application is open. If the application is in the background, you will not get location updates.
 
 ### Location.startUpdatingLocation
 ```javascript

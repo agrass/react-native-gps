@@ -43,12 +43,18 @@ public class RNLocationModule extends ReactContextBaseJavaModule{
     public String getName() {
         return REACT_CLASS;
     }
-
+    /*
+     * Location permission request (Not implemented yet)
+     */
+    @ReactMethod
+    public void requestWhenInUseAuthorization(){
+      Log.i(TAG, "Requesting authorization");
+    }
     /*
      * Location Callback as called by JS
      */
     @ReactMethod
-    public void getLocation() {
+    public void startUpdatingLocation() {
         if (mLastLocation != null) {
             try {
                 double longitude;

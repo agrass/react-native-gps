@@ -66,7 +66,7 @@ public class RNLocationModule extends ReactContextBaseJavaModule{
                 latitude = mLastLocation.getLatitude();
                 speed = mLastLocation.getSpeed();
 
-                Log.i(TAG, "Got new location. Lng: " +Longitude+" Lat: "+Latitude);
+                Log.i(TAG, "Got new location. Lng: " +longitude+" Lat: "+latitude);
 
                 // Create Map with Parameters to send to JS
                 WritableMap params = Arguments.createMap();

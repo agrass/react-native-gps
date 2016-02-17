@@ -7,8 +7,12 @@ Native GPS location support for React Native for Android and IOS. Was inspired i
 ```bash
 npm i --save react-native-gps
 ```
+## IOS
+You then need to add the Objective C part to your XCode project. Drag `RNLocation.xcodeproj` from the `node_modules/react-native-location` folder into your XCode project. Click on the your project in XCode, goto Build Phases then Link Binary With Libraries and add `libRNLocation.a` and `CoreLocation.framework`.
 
-### Add it to your android project
+NOTE: Make sure you don't have the `RNLocation` project open separately in XCode otherwise it won't work.
+
+### Android
 
 * In `android/settings.gradle`
 

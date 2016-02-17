@@ -2,9 +2,11 @@ package com.syarul.rnlocation;
 
 import android.location.Location;
 import android.location.LocationManager;
+import android.location.LocationListener;
 import android.content.Context;
 import android.support.annotation.Nullable;
 import android.util.Log;
+import android.os.Bundle;
 
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.ReactApplicationContext;
@@ -22,6 +24,8 @@ public class RNLocationModule extends ReactContextBaseJavaModule{
     public static final String TAG = RNLocationModule.class.getSimpleName();
     // Save last Location Provided
     private Location mLastLocation;
+    private LocationListener mLocationListener;
+    private LocationManager locationManager;
 
     //The React Native Context
     ReactApplicationContext mReactContext;
@@ -33,66 +37,86 @@ public class RNLocationModule extends ReactContextBaseJavaModule{
         // Save Context for later use
         mReactContext = reactContext;
 
-        LocationManager locationManager = (LocationManager) mReactContext.getSystemService(Context.LOCATION_SERVICE);
+        locationManager = (LocationManager) mReactContext.getSystemService(Context.LOCATION_SERVICE);
         mLastLocation = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+        }
 
-    }
 
-
-    @Override
-    public String getName() {
-        return REACT_CLASS;
-    }
-    /*
-     * Location permission request (Not implemented yet)
-     */
-    @ReactMethod
-    public void requestWhenInUseAuthorization(){
-      Log.i(TAG, "Requesting authorization");
-    }
-    /*
-     * Location Callback as called by JS
-     */
-    @ReactMethod
-    public void startUpdatingLocation() {
-        if (mLastLocation != null) {
-            try {
-                double longitude;
-                double latitude;
-                double speed;
-
-                // Receive Longitude / Latitude from (updated) Last Location
-                longitude = mLastLocation.getLongitude();
-                latitude = mLastLocation.getLatitude();
-                speed = mLastLocation.getSpeed();
-
-                Log.i(TAG, "Got new location. Lng: " +longitude+" Lat: "+latitude);
-
-                // Create Map with Parameters to send to JS
-                WritableMap params = Arguments.createMap();
-                params.putDouble("longitude", longitude);
-                params.putDouble("latitude", latitude);
-                params.putDouble("speed", speed);
-
-                // Send Event to JS to update Location
-                sendEvent(mReactContext, "locationUpdated", params);
-            } catch (Exception e) {
-                e.printStackTrace();
-                Log.i(TAG, "Location services disconnected.");
+        @Override
+        public String getName() {
+          return REACT_CLASS;
+        }
+        /*
+         * Location permission request (Not implemented yet)
+         */
+        @ReactMethod
+        public void requestWhenInUseAuthorization(){
+          Log.i(TAG, "Requesting authorization");
+        }
+        /*
+         * Location Callback as called by JS
+         */
+        @ReactMethod
+        public void startUpdatingLocation() {
+          mLocationListener = new LocationListener(){
+            @Override
+            public void onStatusChanged(String str,int in,Bundle bd){
             }
-        }
-    }
 
-    /*
-     * Internal function for communicating with JS
-     */
-    private void sendEvent(ReactContext reactContext, String eventName, @Nullable WritableMap params) {
-        if (reactContext.hasActiveCatalystInstance()) {
+            @Override
+            public void onProviderEnabled(String str){
+            }
+
+            @Override
+            public void onProviderDisabled(String str){
+            }
+
+            @Override
+            public void onLocationChanged(Location loc){
+                mLastLocation = loc;
+                if (mLastLocation != null) {
+                  try {
+                    double longitude;
+                    double latitude;
+                    double speed;
+
+                    // Receive Longitude / Latitude from (updated) Last Location
+                    longitude = mLastLocation.getLongitude();
+                    latitude = mLastLocation.getLatitude();
+                    speed = mLastLocation.getSpeed();
+
+                    Log.i(TAG, "Got new location. Lng: " +longitude+" Lat: "+latitude);
+
+                   // Create Map with Parameters to send to JS
+                    WritableMap params = Arguments.createMap();
+                    params.putDouble("longitude", longitude);
+                   params.putDouble("latitude", latitude);
+                    params.putDouble("speed", speed);
+
+                    // Send Event to JS to update Location
+                    sendEvent(mReactContext, "locationUpdated", params);
+                  } catch (Exception e) {
+                    e.printStackTrace();
+                    Log.i(TAG, "Location services disconnected.");
+                  }
+              }
+
+
+        }};
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 500, 1, mLocationListener);
+
+        }
+
+        /*
+         * Internal function for communicating with JS
+         */
+        private void sendEvent(ReactContext reactContext, String eventName, @Nullable WritableMap params) {
+          if (reactContext.hasActiveCatalystInstance()) {
             reactContext
-                    .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
-                    .emit(eventName, params);
-        } else {
+              .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
+              .emit(eventName, params);
+          } else {
             Log.i(TAG, "Waiting for CatalystInstance...");
+          }
         }
     }
-}

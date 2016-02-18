@@ -1,6 +1,6 @@
 # react-native-gps
 
-Native GPS location support for React Native for Android and IOS. Was inspired in project of [timfpark](https://github.com/timfpark/react-native-location) and  [syarul](https://github.com/syarul/react-native-android-location)
+Native GPS location support for React Native for Android and IOS. This module was inspired in project of [timfpark](https://github.com/timfpark/react-native-location) and  [syarul](https://github.com/syarul/react-native-android-location). For the moment is not compatible for a PR back to one of that repositories because some methods are not implemented yet and some structure changed. For the moment only some few methods are implemented, if you want to contribute, any contribution of new missing methods will be appreciated.
 
 ## Installation
 #### Install the npm package
@@ -107,7 +107,7 @@ var subscription = DeviceEventEmitter.addListener(
 
 ## Methods
 
-To access the methods, you need import the `react-native-location` module. This is done through `var Beacons = require('react-native-location')`.
+To access the methods, you need import the `react-native-location` module. 
 
 ### Location.requestWhenInUseAuthorization
 ```javascript

@@ -97,7 +97,6 @@ var subscription = DeviceEventEmitter.addListener(
           heading: -1,
           altitude: 0,
           altitudeAccuracy: -1
-          timestamp: 1446007304457.029
         }
         */
     }

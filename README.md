@@ -113,7 +113,7 @@ To access the methods, you need import the `react-native-location` module.
 Location.requestWhenInUseAuthorization();
 ```
 
-This method should be called before anything else. It requests location updates while the application is open. If the application is in the background, you will not get location updates.
+This method should be called before anything else. It requests location updates while the application is open. If the application is in the background, you will not get location updates (for the moment, background work not implemented yet).
 
 ### Location.startUpdatingLocation
 ```javascript

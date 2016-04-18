@@ -72,7 +72,6 @@ Add this to your AndroidManifest file;
 ``` xml
 // file: android/app/src/main/AndroidManifest.xml
 
-<uses-permission android:name="android.permission.ACCESS_LOCATION" />
 <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 ```
 

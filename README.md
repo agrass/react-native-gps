@@ -35,7 +35,7 @@ dependencies {
 * register module (in MainActivity.java)
 
 ```java
-import com.syarul.rnalocation.RNLocation;  // <--- import
+import com.syarul.rnlocation.RNLocation;  // <--- import
 
 public class MainActivity extends Activity implements DefaultHardwareBackBtnHandler {
   ......

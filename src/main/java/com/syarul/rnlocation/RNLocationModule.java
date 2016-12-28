@@ -80,7 +80,8 @@ public class RNLocationModule extends ReactContextBaseJavaModule{
                     double latitude;
                     double speed;
                     double altitude;
-                    float accuracy;
+                    double accuracy;
+                    double course;
 
                     // Receive Longitude / Latitude from (updated) Last Location
                     longitude = mLastLocation.getLongitude();
@@ -88,7 +89,7 @@ public class RNLocationModule extends ReactContextBaseJavaModule{
                     speed = mLastLocation.getSpeed();
                     altitude = mLastLocation.getAltitude();
                     accuracy = mLastLocation.getAccuracy();
-                    
+                    course = mLastLocation.getBearing();
 
                     Log.i(TAG, "Got new location. Lng: " +longitude+" Lat: "+latitude);
 
@@ -98,8 +99,8 @@ public class RNLocationModule extends ReactContextBaseJavaModule{
                     params.putDouble("latitude", latitude);
                     params.putDouble("speed", speed);
                     params.putDouble("altitude", altitude);
-                    params.putFloat("accuracy", accuracy);
-                    
+                    params.putDouble("accuracy", accuracy);
+                    params.putDouble("course", course);
 
                     // Send Event to JS to update Location
                     sendEvent(mReactContext, "locationUpdated", params);

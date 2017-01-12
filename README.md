@@ -124,5 +124,10 @@ var subscription = DeviceEventEmitter.addListener(
     }
 );
 ```
+
+### Location.stopUpdatingLocation
+```javascript
+Location.stopUpdatingLocation();
+```
 ## License
 MIT, for more information see `LICENSE`

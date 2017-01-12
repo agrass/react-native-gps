@@ -116,6 +116,16 @@ public class RNLocationModule extends ReactContextBaseJavaModule{
 
         }
 
+        @ReactMethod
+        public void stopUpdatingLocation() {
+            try {
+                locationManager.removeUpdates(mLocationListener);
+                Log.i(TAG, "Location service disabled.");
+            }catch(Exception e) {
+                e.printStackTrace();
+            }
+        }
+
         /*
          * Internal function for communicating with JS
          */

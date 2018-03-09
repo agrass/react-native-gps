@@ -43,7 +43,6 @@ public class RNLocationModule extends ReactContextBaseJavaModule{
     mReactContext = reactContext;
 
     locationManager = (LocationManager) mReactContext.getSystemService(Context.LOCATION_SERVICE);
-    mLastLocation = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
   }
 
 

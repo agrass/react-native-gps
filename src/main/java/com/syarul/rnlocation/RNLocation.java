@@ -18,10 +18,12 @@ public class RNLocation implements ReactPackage {
                 new RNLocationModule(reactContext)
         );
     }
-    @Override
+
+    // Deprecated RN 0.47
     public List<Class<? extends JavaScriptModule>> createJSModules() {
         return Collections.emptyList();
     }
+
     @Override
     public List<ViewManager> createViewManagers(ReactApplicationContext reactApplicationContext) {
         return Collections.emptyList();
